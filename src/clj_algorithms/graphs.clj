@@ -1,6 +1,5 @@
 (ns ^{:author "Curtis Bowman"} clj-algorithms.graphs)
 
-
 (def graph {:a #{:d}
             :b #{:c}
             :c #{:c :b :d :e} 
