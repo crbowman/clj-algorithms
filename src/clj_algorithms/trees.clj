@@ -42,7 +42,7 @@
     (node :left)
       (and (> (node :val) ((node :left) :val))
            (binary-tree? (node :left)))
-    (node :right)  
+    (node :right)
       (and (< (node :val) ((node :right) :val))
            (binary-tree? (node :right)))
     (node :val)
@@ -214,7 +214,7 @@
   ([val node]
      (cond
        (not node)
-         (struct avl-node nil val 0 nil)  
+         (struct avl-node nil val 0 nil)
        (< val (node :val))
          (let
            [n (assoc node :left (avl-insert val (node :left)))]
@@ -325,13 +325,13 @@
       (do (println "  splay-insert (not node)")
           (struct splay-node nil key val nil nil))
       (< key (node :key))
-      (do (println "  splay-insert (< key (node :key))")  
+      (do (println "  splay-insert (< key (node :key))")
           (let [t (assoc node :left
                          (splay-insert-helper [key val] (node :left) node))]
             (println "    " t)
-            (splay (get-splay-node t key))))     
+            (splay (get-splay-node t key))))
       (> key (node :key))
-      (do (println "  splay-insert (> key (node :key))")  
+      (do (println "  splay-insert (> key (node :key))")
           (let [t (assoc node :right
                          (splay-insert-helper [key val] (node :right) node))]
             (splay (get-splay-node t key)))))))
@@ -346,7 +346,4 @@
       t
       (recur (inc i)
              (splay-insert (nth xs i) t)))))
-
-
-
 

@@ -17,7 +17,7 @@
    (frac-to-gaus frac []))
   ([frac gaus]
    (if (not (ratio? frac))
-     (conj gaus (long frac))    
+     (conj gaus (long frac))
      (let [n (numerator frac)
            d (denominator frac)
            q (long (quot n d))
@@ -30,6 +30,3 @@
 (gaus-to-frac [2 1 7])
 (frac-to-gaus (/ 7 3))
 
-
-
-        

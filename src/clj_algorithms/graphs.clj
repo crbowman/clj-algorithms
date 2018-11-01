@@ -2,7 +2,7 @@
 
 (def graph {:a #{:d}
             :b #{:c}
-            :c #{:c :b :d :e} 
+            :c #{:c :b :d :e}
             :d #{:c}
             :e #{:c}
             :f #{}})

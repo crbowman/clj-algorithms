@@ -31,7 +31,7 @@
 
 (defn quicksort-first [[p & xs :as X]]
   "Quicksort algorithm that takes the first item in the sequence
-   as its pivot. can cause a stack overflow error in the worst 
+   as its pivot. can cause a stack overflow error in the worst
    case (presorted input)"
   (if (> (count X) 1) ; base case
     (concat (quicksort (filter #(<= % p) xs))
