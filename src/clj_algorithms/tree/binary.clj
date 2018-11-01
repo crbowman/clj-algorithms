@@ -16,7 +16,9 @@
       (< val (root :val))
         (assoc root :left (binary-insert val (root :left)))
       (> val (root :val))
-        (assoc root :right (binary-insert val (root :right))))))
+        (assoc root :right (binary-insert val (root :right)))
+      (= val (root :val))
+        root)))
 
 (defn build-binary-tree [xs]
   "Builds a binary tree by iterating through xs, inserting
