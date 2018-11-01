@@ -25,7 +25,7 @@
   (def tree nil)
   (loop [i 0]
     (when (< i (count xs))
-      (do 
+      (do
         (def t (binary-insert (nth xs i) tree))
         (def tree t)
         (recur (inc i)))))
@@ -75,7 +75,7 @@
            (print-binary-tree (node :right) (inc depth)))))))
 
 (defn binary-contains? [node val]
-  "True if the binary tree at node contains a node 
+  "True if the binary tree at node contains a node
    with the value val"
   (cond
    (not node)
@@ -99,7 +99,7 @@
      node))
 
 (defn binary-find-max [node]
-  "returns the node with the greatest value from the 
+  "returns the node with the greatest value from the
    binary tree at node"
   (cond
    (not node)
@@ -110,7 +110,7 @@
      node))
 
 (defn replace-node-in-parent [par node child]
-  "removes node from the binary tree by replacing parent par's 
+  "removes node from the binary tree by replacing parent par's
    reference to node with a reference to node's child"
   (cond
     (= ((par :left) :val) (node :val))
