@@ -79,75 +79,45 @@
   "True if the binary tree at node contains a node
    with the value val"
   (cond
-   (not node)
-     nil
-   (< val (node :val))
-     (binary-contains? (node :left) val)
-   (> val (node :val))
-     (binary-contains? (node :right) val)
-   :else
-     true))
+   (not node) nil
+   (< val (node :val)) (binary-contains? (node :left) val)
+   (> val (node :val)) (binary-contains? (node :right) val)
+   :else true))
 
 (defn binary-find-min [node]
   "returns the node with the smallest value from the
    binary tree at node"
   (cond
-   (not node)
-     nil
-   (node :left)
-     (binary-find-min (node :left))
-   :else
-     node))
+   (not node) nil
+   (node :left) (binary-find-min (node :left))
+   :else node))
 
 (defn binary-find-max [node]
   "returns the node with the greatest value from the
    binary tree at node"
   (cond
-   (not node)
-     nil
-   (node :right)
-     (binary-find-max (node :right))
-   :else
-     node))
+   (not node) nil
+   (node :right) (binary-find-max (node :right))
+   :else node))
 
-(defn replace-node-in-parent [par node child]
-  "removes node from the binary tree by replacing parent par's
-   reference to node with a reference to node's child"
+(defn binary-delete-min [node]
+  "Delete the minimum value in a binary tree. Returns a vector with the
+   value that was deleted, and the new tree without that value."
+  (if (leaf? (node :left))
+    [((node :left) :val) {:left nil :val (node :val) :right (node :right)}]
+    (let [[min left] (binary-delete-min (node :left))]
+      [min {:left left :val (node :val) :right (node :right)}])))
+
+(defn binary-delete [node val]
+  "Delete a value from a binary tree."
   (cond
-    (= ((par :left) :val) (node :val))
-      (assoc par :left child)
-    (= ((par :right) :val) (node :val))
-      (assoc par :right child)))
-
-(defn binary-remove
-  "removes the node with the value val from the binary tree
-   at node. Ensures that the tree remains a binary tree"
-  ([node val]
-     (cond
-       (not (binary-contains? node (node :val)))
-         node
-       (< val (node :val))
-         (binary-remove (node :left) val node)
-       (> val (node :val))
-         (binary-remove (node :right) val node)
-       :else
-         (binary-remove node val nil)))
-  ([node val par]
-     (cond
-       (< val (node :val))
-         (binary-remove (node :left) val node)
-       (> val (node :val))
-         (binary-remove (node :right) val node)
-      :else
-        (cond
-          (and (node :left) (node :right))
-            (let [succ (binary-find-min (node :right))]
-              (assoc node :val (succ :val))
-              (binary-remove (node :right) (succ :val) node))
-          (node :left)
-            (replace-node-in-parent par node (node :left))
-          (node :right)
-            (replace-node-in-parent par node (node :right))
-          :else
-            (replace-node-in-parent par node nil)))))
-
+    (< val (node :val))
+    (assoc node :left (binary-delete (node :left) val))
+    (> val (node :val))
+    (assoc node :right (binary-delete (node :right) val))
+    :else
+    (cond
+      (leaf? (node :right)) (node :left)
+      (leaf? (node :left)) (node :right)
+      :else (let [[min right] (binary-delete-min (node :right))]
+              {:left (node :left) :val min :right right}))))
