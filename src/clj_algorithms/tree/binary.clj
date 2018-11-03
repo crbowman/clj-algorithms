@@ -11,7 +11,7 @@
      (struct binary-node nil val nil))
   ([val root]
      (cond
-      (not root)
+      (nil? root)
         (struct binary-node nil val nil)
       (< val (root :val))
         (assoc root :left (binary-insert val (root :left)))
@@ -20,17 +20,16 @@
       (= val (root :val))
         root)))
 
-(defn build-binary-tree [xs]
-  "Builds a binary tree by iterating through xs, inserting
-   each item in the tree"
-  (def tree nil)
-  (loop [i 0]
-    (when (< i (count xs))
-      (do
-        (def t (binary-insert (nth xs i) tree))
-        (def tree t)
-        (recur (inc i)))))
-  tree)
+(defn build-binary-tree
+  "Recursively builds a binary tree out of the elements in xs"
+  ([xs]
+   (if (empty? xs)
+     nil
+     (build-tree (rest xs) (binary-insert (first xs)))))
+  ([xs node]
+   (if (empty? xs)
+     node
+     (build-tree (rest xs) (binary-insert (first xs) node)))))
 
 (defn binary-tree? [node]
   "True if node is the root of a binary tree"
