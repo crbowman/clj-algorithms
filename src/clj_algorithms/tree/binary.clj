@@ -35,7 +35,6 @@
 (defn binary-tree? [node]
   "True if node is the root of a binary tree"
   (cond
-
     (and (node :left) (node :right))
       (and (> (node :val) ((node :left) :val))
            (< (node :val) ((node :right) :val))
