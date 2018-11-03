@@ -59,20 +59,20 @@
   ([node]
      (if node
        (do
-         (if (node :left)
-           (print-binary-tree (node :left) 1))
-         (println  (node :val))
          (if (node :right)
-           (print-binary-tree (node :right) 1)))))
+           (print-binary-tree (node :right) 1))
+         (println  (node :val))
+         (if (node :left)
+           (print-binary-tree (node :left) 1)))))
   ([node depth]
      (if node
        (do
-         (if (node :left)
-           (print-binary-tree (node :left) (inc depth)))
+         (if (node :right)
+           (print-binary-tree (node :right) (inc depth)))
          (let [padding (clojure.string/join (repeat depth "    "))]
            (println padding  (node :val)))
-         (if (node :right)
-           (print-binary-tree (node :right) (inc depth)))))))
+         (if (node :left)
+           (print-binary-tree (node :left) (inc depth)))))))
 
 
 (defn binary-contains? [node val]
