@@ -35,6 +35,7 @@
 (defn binary-tree? [node]
   "True if node is the root of a binary tree"
   (cond
+
     (and (node :left) (node :right))
       (and (> (node :val) ((node :left) :val))
            (< (node :val) ((node :right) :val))
@@ -60,20 +61,21 @@
   ([node]
      (if node
        (do
-         (println "* " (node :val))
          (if (node :left)
            (print-binary-tree (node :left) 1))
+         (println  (node :val))
          (if (node :right)
            (print-binary-tree (node :right) 1)))))
   ([node depth]
      (if node
        (do
-         (let [tabs (clojure.string/join (repeat depth "  "))]
-           (println tabs "* " (node :val)))
-         ( if (node :left)
+         (if (node :left)
            (print-binary-tree (node :left) (inc depth)))
+         (let [padding (clojure.string/join (repeat depth "    "))]
+           (println padding  (node :val)))
          (if (node :right)
            (print-binary-tree (node :right) (inc depth)))))))
+
 
 (defn binary-contains? [node val]
   "True if the binary tree at node contains a node
