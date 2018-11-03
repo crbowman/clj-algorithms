@@ -2,17 +2,17 @@
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; Binary Search Trees ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(defstruct binary-node :left :val :right)
+(defstruct binary-node :val :left :right)
 
 (defn binary-insert
   "Insert val into binary tree at node root, if root is
    not supplied create a new binary tree with one node"
   ([val]
-     (struct binary-node nil val nil))
+     (struct binary-node val nil nil))
   ([val root]
      (cond
       (nil? root)
-        (struct binary-node nil val nil)
+        (struct binary-node val nil nil)
       (< val (root :val))
         (assoc root :left (binary-insert val (root :left)))
       (> val (root :val))
